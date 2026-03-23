@@ -3,7 +3,33 @@ import asyncio, edge_tts, srt, os, re, pandas as pd
 from pydub import AudioSegment
 from deep_translator import GoogleTranslator
 from audiostretchy.stretch import stretch_audio
+import streamlit as st
 
+# --- កំណត់ឈ្មោះអ្នកប្រើ និង លេខសម្ងាត់ ---
+USER_NAME = "admin"
+USER_PASSWORD = "your_password_here" # បងប្តូរលេខសម្ងាត់នៅទីនេះ
+
+def login():
+    if "logged_in" not in st.session_state:
+        st.session_state.logged_in = False
+
+    if not st.session_state.logged_in:
+        st.subheader("🔐 សូមចូលប្រើប្រាស់ប្រព័ន្ធ")
+        user = st.text_input("ឈ្មោះអ្នកប្រើ (Username)")
+        pw = st.text_input("លេខសម្ងាត់ (Password)", type="password")
+        
+        if st.button("ចូលប្រើ (Login)", use_container_width=True):
+            if user == USER_NAME and pw == USER_PASSWORD:
+                st.session_state.logged_in = True
+                st.rerun()
+            else:
+                st.error("ឈ្មោះ ឬ លេខសម្ងាត់មិនត្រឹមត្រូវ!")
+        st.stop() # បញ្ឈប់កូដខាងក្រោមមិនឱ្យដើរ បើមិនទាន់ Login
+
+# ហៅ Function Login មកប្រើនៅខាងលើគេបង្អស់
+login()
+
+# --- បន្ទាប់មកគឺជាកូដចាស់របស់បង (st.set_page_config...) ---
 # --- ១. Helper Functions (ចាប់ភេទឆ្លាត និងបកប្រែសម្រាយ) ---
 def localize_khmer(text):
     if not text: return ""
