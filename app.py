@@ -7,7 +7,7 @@ import streamlit as st
 
 # --- កំណត់ឈ្មោះអ្នកប្រើ និង លេខសម្ងាត់ ---
 USER_NAME = "admin"
-USER_PASSWORD = "your_password_here" # បងប្តូរលេខសម្ងាត់នៅទីនេះ
+USER_PASSWORD = "reachzano" # បងប្តូរលេខសម្ងាត់នៅទីនេះ
 
 def login():
     if "logged_in" not in st.session_state:
