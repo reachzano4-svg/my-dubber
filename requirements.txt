@@ -4,4 +4,3 @@ srt
 pydub
 deep-translator
 audiostretchy
-pyaudioop
