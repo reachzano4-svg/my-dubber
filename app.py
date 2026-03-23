@@ -139,7 +139,8 @@ if st.session_state.data:
     df = pd.DataFrame(st.session_state.data)
     
     # ប៊ូតុងបញ្ជាភេទ និងបកប្រែឡើងវិញ
-    c1, c2, c3, c4 = st.columns([1,1,1,1.5])
+    # ប៊ូតុងបញ្ជាភេទ និងបកប្រែឡើងវិញ
+    c1, c2, c3, c4, c5 = st.columns([1,1,1,1,1.5]) # ថែម Column មួយទៀត
     with c1:
         if st.button("👩 ស្រី (រើស)", use_container_width=True):
             edited_rows = st.session_state.get("stable_editor", {}).get("edited_rows", {})
@@ -152,10 +153,19 @@ if st.session_state.data:
             for idx, val in edited_rows.items():
                 if val.get("Select") == True or df.iloc[idx]["Select"] == True: df.at[idx, "Voice"] = "Male"
             st.session_state.data = df.to_dict('records'); st.rerun()
+    
+    # --- នេះគឺជាប៊ូតុងថ្មីដែលបងចង់បាន ---
     with c3:
-        if st.button("👔 ប្រុសទាំងអស់", use_container_width=True):
-            df['Voice'] = 'Male'; st.session_state.data = df.to_dict('records'); st.rerun()
+        if st.button("💃 ស្រីទាំងអស់", use_container_width=True):
+            df['Voice'] = 'Female'
+            st.session_state.data = df.to_dict('records'); st.rerun()
+            
     with c4:
+        if st.button("👔 ប្រុសទាំងអស់", use_container_width=True):
+            df['Voice'] = 'Male'
+            st.session_state.data = df.to_dict('records'); st.rerun()
+            
+    with c5:
         if st.button("♻️ Fix Selected", use_container_width=True):
             tr_km_fix = GoogleTranslator(source='en', target='km')
             for idx, row in df.iterrows():
